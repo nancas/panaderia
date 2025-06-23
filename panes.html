@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <title>Panes</title>
+</head>
+<body>
+    <div class="menu">
+        <h1>Todo en Panes</h1>
+        <nav>
+            <a href="index.html">🏪Home</a>
+            <a href="panes.html">🍞Panes</a>
+            <a href="pasteles.html">🎂Pateles</a>
+        </nav>
+    </div>
+    <div class="contPrincipal">
+        <div class="contProducto">
+            <img src="https://pandevidaec.com/wp-content/uploads/2024/01/Pan-de-yema-1.png" alt="">
+            <div class="p">
+                <h3>Pirujo</h3>
+                <p>Q2.00</p>
+                <form action="">
+                <input placeholder="🛒 ||" type="number" id="0" >
+            </form>
+            </div>
+        </div>
+        <div class="contProducto">
+            <img src="https://www.panaderia.com.gt/wp-content/uploads/2015/03/ma1.png" alt="">
+            <div class="p">
+                <h3>Pan Dulce 3u</h3>
+                <p>Q3.00</p>
+                <form action="">
+                <input  placeholder="🛒 ||" type="number" id="1">
+            </form>
+            </div>
+        </div>
+        <div class="contProducto">
+            <img src="https://jumbocl.vtexassets.com/arquivos/ids/349671-250-250/Principal-1304.jpg?v=638776678002300000" alt="">
+            <div class="p">
+                <h3>Pan Italiano Integral</h3>
+                <p>Q2.00</p>
+                <form action="">
+                <input placeholder="🛒 ||"  type="number" id="2">
+            </form>
+            </div>
+        </div>
+        <div class="contProducto">
+            <img src="https://polvillo.es/wp-content/uploads/2016/06/romanito-integral.png" alt="">
+            <div class="p">
+                <h3>Romanito Integral</h3>
+                <p>Q5.00</p>
+                <form action="">
+                <input placeholder="🛒 ||"  type="number" id="3">
+            </form>
+            </div>
+        </div>
+        <div class="contProducto">
+            <img src="https://naturissimo.com/wp-content/uploads/2023/12/panes-de-yuca-1.webp" alt="">
+            <div class="p">
+                <h3>Pan de Yuca</h3>
+                <p>Q5.00</p>
+                <form action="">
+                <input placeholder="🛒 ||"  type="number" id="4">
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="contenedor"></div>
+    <script>
+        const itemsPanaderia = [
+        {  nombre: "Pirujo", precio: 5, cantidad:12, imagen:' ' },
+        { nombre: "Pan dulce", precio: 3, cantidad:10, imagen:'' },
+        {  nombre: "Pan italiano", precio: 7, cantidad: 30, imagen:'' },
+        {  nombre: "Romanito integral", precio: 2, cantidad: 90, imagen: ''},
+        {   nombre: "Pan de yuca", precio: 1, cantidad: 10, imagen: '' }
+        ];
+
+        function actualizarLista() {
+        const contenedor = document.getElementById("contenedor");
+        let html = "<ul>";
+
+        itemsPanaderia.forEach((item, index) => {
+            html += <li>${item.nombre} - Q${item.precio} (Stock: ${item.cantidad})</li>;
+        });
+
+        html += "</ul>";
+        contenedor.innerHTML = html;
+        }
+
+        // Llamar una vez al cargar la página
+        actualizarLista();
+
+
+        let copia = { ...itemsPanaderia }
+
+        function validar(cantidad, inventario){
+            if (inventario >= cantidad) {
+                return true; 
+            }
+            return false; 
+        }
+
+        function descontar(id, cantidad){
+            itemsPanaderia[id].cantidad = itemsPanaderia[id].cantidad-Number(cantidad);
+        }
+
+        function comprarPan() {
+            let descuento = '';
+            let total = 0; 
+            for (let index = 0; index < itemsPanaderia.length; index++) {
+                const input = document.getElementById(index.toString());
+                if (validar(Number(input.value), itemsPanaderia[index].cantidad)){
+                total = total + input.value * itemsPanaderia[index].precio;
+                descontar(index,Number(input.value))
+                }
+            }
+            if (total>200){
+            
+                let montoDescuento =  total*0.05
+                total=total - montoDescuento
+                descuento=' aplico descuento Q.'+montoDescuento
+            }
+
+
+        alert('Total: Q.'+total + descuento )
+        actualizarLista()
+        }
+</script>
+
+    <footer>
+        <h1>El sabor que despierta tus mañanas.</h1>
+    </footer>
+    
+</body>
+
+
+
+
+
+
+</html>
