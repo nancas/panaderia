@@ -72,66 +72,7 @@
     </div>
 
     <div id="contenedor"></div>
-    <script>
-        const itemsPanaderia = [
-        {  nombre: "Pirujo", precio: 5, cantidad:12, imagen:' ' },
-        { nombre: "Pan dulce", precio: 3, cantidad:10, imagen:'' },
-        {  nombre: "Pan italiano", precio: 7, cantidad: 30, imagen:'' },
-        {  nombre: "Romanito integral", precio: 2, cantidad: 90, imagen: ''},
-        {   nombre: "Pan de yuca", precio: 1, cantidad: 10, imagen: '' }
-        ];
 
-        function actualizarLista() {
-        const contenedor = document.getElementById("contenedor");
-        let html = "<ul>";
-
-        itemsPanaderia.forEach((item, index) => {
-            html += <li>${item.nombre} - Q${item.precio} (Stock: ${item.cantidad})</li>;
-        });
-
-        html += "</ul>";
-        contenedor.innerHTML = html;
-        }
-
-        // Llamar una vez al cargar la página
-        actualizarLista();
-
-
-        let copia = { ...itemsPanaderia }
-
-        function validar(cantidad, inventario){
-            if (inventario >= cantidad) {
-                return true; 
-            }
-            return false; 
-        }
-
-        function descontar(id, cantidad){
-            itemsPanaderia[id].cantidad = itemsPanaderia[id].cantidad-Number(cantidad);
-        }
-
-        function comprarPan() {
-            let descuento = '';
-            let total = 0; 
-            for (let index = 0; index < itemsPanaderia.length; index++) {
-                const input = document.getElementById(index.toString());
-                if (validar(Number(input.value), itemsPanaderia[index].cantidad)){
-                total = total + input.value * itemsPanaderia[index].precio;
-                descontar(index,Number(input.value))
-                }
-            }
-            if (total>200){
-            
-                let montoDescuento =  total*0.05
-                total=total - montoDescuento
-                descuento=' aplico descuento Q.'+montoDescuento
-            }
-
-
-        alert('Total: Q.'+total + descuento )
-        actualizarLista()
-        }
-</script>
 
     <footer>
         <h1>El sabor que despierta tus mañanas.</h1>
@@ -142,6 +83,69 @@
 
 
 
+<script>
 
+
+
+    const itemsPanaderia = [
+      {  nombre: "Pirujo", precio: 5, cantidad:12, imagen:' ' },
+      { nombre: "Pan dulce", precio: 3, cantidad:10, imagen:'' },
+      {  nombre: "Pan italiano", precio: 7, cantidad: 30, imagen:'' },
+      {  nombre: "Romanito integral", precio: 2, cantidad: 90, imagen: ''},
+      {   nombre: "Pan de yuca", precio: 1, cantidad: 10, imagen: '' }
+    ];
+    
+    
+    function actualizarLista() {
+      const contenedor = document.getElementById("contenedor");
+      let html = "<ul>";
+    
+      itemsPanaderia.forEach((item, index) => {
+        html += `<li>${item.nombre} - Q${item.precio} (Stock: ${item.cantidad})</li>`;
+      });
+    
+      html += "</ul>";
+      contenedor.innerHTML = html;
+    }
+    
+    // Llamar una vez al cargar la página
+    actualizarLista();
+    
+    
+    let copia = { ...itemsPanaderia }
+    
+    function validar(cantidad, inventario){
+        if (inventario >= cantidad) {
+            return true; 
+        }
+        return false; 
+    }
+    
+    function descontar(id, cantidad){
+        itemsPanaderia[id].cantidad = itemsPanaderia[id].cantidad-Number(cantidad);
+    }
+    
+    function comprarPan() {
+        let descuento = '';
+        let total = 0; 
+        for (let index = 0; index < itemsPanaderia.length; index++) {
+            const input = document.getElementById(index.toString());
+            if (validar(Number(input.value), itemsPanaderia[index].cantidad)){
+            total = total + input.value * itemsPanaderia[index].precio;
+            descontar(index,Number(input.value))
+            }
+        }
+        if (total>200){
+         
+            let montoDescuento =  total*0.05
+            total=total - montoDescuento
+            descuento=' aplico descuento Q.'+montoDescuento
+        }
+    
+    
+    alert('Total: Q.'+total + descuento )
+    actualizarLista()
+    }
+    </script>   
 
 </html>
